@@ -5,9 +5,9 @@ metadata:
   labels:
     app: {{ .Release.Name }}-app
 spec:
-  type: {{ .Values.app.service.type }}
+  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.app.service.port }}
-      targetPort: {{ .Values.app.service.port }}
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
   selector:
     app: {{ .Release.Name }}-app

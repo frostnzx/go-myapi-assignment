@@ -14,7 +14,6 @@ RUN go mod download
 COPY . .
 
 # Build the Go application
-# Use CGO_ENABLED=0 to ensure the binary is statically linked
 RUN CGO_ENABLED=0 GOOS=linux go build -o myapi ./cmd
 
 # Use a minimal base image for the final container
@@ -26,11 +25,8 @@ WORKDIR /root/
 # Copy the compiled binary from the builder stage
 COPY --from=builder /app/myapi .
 
-# Debug step to verify the binary exists
-RUN ls -la /root/
-
 # Expose the port your application listens on
-EXPOSE 8080
+EXPOSE 8081
 
 # Command to run the application
 CMD ["./myapi"]

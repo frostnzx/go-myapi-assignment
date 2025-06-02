@@ -1,26 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-app
+  name: {{ .Release.Name }}
   labels:
-    app: {{ .Release.Name }}-app
+    app: {{ .Release.Name }}
 spec:
-  replicas: {{ .Values.app.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-app
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-app
+        app: {{ .Release.Name }}
     spec:
       containers:
         - name: app
-          image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.app.service.port }}
+            - containerPort: {{ .Values.service.port }}
           env:
             - name: REDIS_HOST
-              value: "{{ .Values.app.env.REDIS_HOST }}"
+              value: "{{ .Values.env.REDIS_HOST }}"
             - name: REDIS_PORT
-              value: "{{ .Values.app.env.REDIS_PORT }}"
+              value: "{{ .Values.env.REDIS_PORT }}"
